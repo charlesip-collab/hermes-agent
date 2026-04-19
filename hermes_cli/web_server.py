@@ -59,7 +59,7 @@ except ImportError:
         f"Install with: {sys.executable} -m pip install 'fastapi' 'uvicorn[standard]'"
     )
 
-WEB_DIST = Path(__file__).parent / "web_dist"
+WEB_DIST = Path(os.environ["HERMES_WEB_DIST"]) if "HERMES_WEB_DIST" in os.environ else Path(__file__).parent / "web_dist"
 _log = logging.getLogger(__name__)
 
 app = FastAPI(title="Hermes Agent", version=__version__)
@@ -234,6 +234,7 @@ _CATEGORY_MERGE: Dict[str, str] = {
     "human_delay": "display",
     "smart_model_routing": "agent",
     "dashboard": "display",
+    "code_execution": "agent",
 }
 
 # Display order for tabs — unlisted categories sort alphabetically after these.
